@@ -1,0 +1,144 @@
+1. Импорт библиотеки
+python
+import flet as ft
+Импортируем библиотеку Flet под псевдонимом ft для удобства.
+
+2. Основная функция
+python
+def main(page: ft.Page):
+Главная функция main, которая принимает объект страницы page - это основа Flet-приложения.
+
+3. Настройки страницы
+python
+    page.title = "Счётчик кликов"
+    page.vertical_alignment = ft.MainAxisAlignment.CENTER
+    page.horizontal_alignment = ft.CrossAxisAlignment.CENTER
+    page.theme_mode = ft.ThemeMode.LIGHT
+Устанавливаем заголовок окна
+
+Выравниваем содержимое по центру по вертикали и горизонтали
+
+Устанавливаем светлую тему
+
+4. Переменная для хранения кликов
+python
+    click_count = 0
+Целочисленная переменная, хранящая текущее количество кликов
+
+5. Элемент интерфейса для отображения счётчика
+python
+    count_text = ft.Text(value="0", size=40, weight=ft.FontWeight.BOLD)
+Текстовый элемент, который будет показывать количество кликов
+
+Начальное значение "0", крупный шрифт (40px), жирное начертание
+
+6. Функция увеличения счётчика
+python
+    def increment_click(e):
+        nonlocal click_count
+        click_count += 1
+        count_text.value = str(click_count)
+        page.update()
+nonlocal позволяет изменять переменную click_count из внешней области видимости
+
+Увеличиваем счётчик на 1
+
+Обновляем текст с новым значением
+
+page.update() перерисовывает интерфейс
+
+7. Функция сброса счётчика
+python
+    def reset_clicks(e):
+        nonlocal click_count
+        click_count = 0
+        count_text.value = "0"
+        page.update()
+Аналогично функции увеличения, но обнуляет счётчик
+
+8. Создание кнопок
+Кнопка "Кликнуть!"
+python
+    click_button = ft.ElevatedButton(
+        "Кликнуть!",
+        on_click=increment_click,
+        width=200,
+        height=50,
+        color=ft.colors.WHITE,
+        bgcolor=ft.colors.GREEN
+    )
+Текст "Кликнуть!"
+
+При нажатии вызывает increment_click
+
+Размеры 200x50 пикселей
+
+Белый текст на зелёном фоне
+
+Кнопка "Сбросить"
+python
+    reset_button = ft.ElevatedButton(
+        "Сбросить",
+        on_click=reset_clicks,
+        width=200,
+        height=50,
+        color=ft.colors.WHITE,
+        bgcolor=ft.colors.RED
+    )
+Аналогичная структура, но вызывает reset_clicks
+
+Белый текст на красном фоне
+
+9. Компоновка интерфейса
+python
+    page.add(
+        ft.Column(
+            [
+                ft.Text("Счётчик кликов", size=30),
+                count_text,
+                click_button,
+                reset_button,
+            ],
+            horizontal_alignment=ft.CrossAxisAlignment.CENTER,
+            spacing=20
+        )
+    )
+page.add() добавляет элементы на страницу
+
+ft.Column располагает элементы вертикально
+
+Элементы в колонке:
+
+Заголовок "Счётчик кликов" (30px)
+
+Текст счётчика
+
+Кнопка "Кликнуть!"
+
+Кнопка "Сбросить"
+
+Все элементы центрированы по горизонтали
+
+Отступ между элементами 20 пикселей
+
+10. Запуск приложения
+python
+ft.app(target=main)
+Запускаем приложение, указывая main как целевую функцию
+
+Принцип работы
+Приложение создаёт окно с заголовком "Счётчик кликов"
+
+Отображается текущее количество кликов (изначально 0)
+
+При нажатии на зелёную кнопку:
+
+Счётчик увеличивается на 1
+
+Обновляется отображение
+
+При нажатии на красную кнопку:
+
+Счётчик сбрасывается в 0
+
+Обновляется отображение
