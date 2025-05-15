@@ -68,8 +68,6 @@ def main(page: ft.Page):
         )
     )
 
-
-# Запуск приложения
 ft.app(target=main)
 
 
